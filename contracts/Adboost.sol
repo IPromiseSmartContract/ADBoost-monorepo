@@ -6,4 +6,5 @@ contract Adboost {
     constructor() {
         
     }
+    
 }
