@@ -1,81 +1,67 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.24;
-import "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155PausableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155BurnableUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC1155/extensions/ERC1155SupplyUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
-contract AdBoost is
-    Initializable,
-    ERC1155Upgradeable,
-    OwnableUpgradeable,
-    ERC1155PausableUpgradeable,
-    ERC1155BurnableUpgradeable,
-    ERC1155SupplyUpgradeable,
-    UUPSUpgradeable,
-    Ownable
-{
-    uint256 private constant AD_TOKEN_ID = 1; // 固定的廣告Token ID
-    string private _adURI; // 廣告的URI
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./Ad.sol"; // 假设Ad合约与此合约在同一目录
+
+contract AdBoost is Ownable {
+    IERC20 public boostToken; // BOOST代币的接口
+    address[] public ads; // 存储所有广告合约的地址
+
+    event AdCreated(
+        address indexed adAddress,
+        string name,
+        address indexed creator
+    );
 
     constructor(
-        string memory initialAdURI
-    ) ERC1155("https://adboost.com/api/token/{id}.json") {
-        _adURI = initialAdURI;
+        address _boostTokenAddress,
+        address _initialOwner
+    ) Ownable(_initialOwner) {
+        boostToken = IERC20(_boostTokenAddress);
     }
 
-    function setAdURI(string memory newAdURI) public onlyOwner {
-        _adURI = newAdURI;
-    }
+    function createAd(
+        string memory _name,
+        uint256 _boostTokenAmount,
+        address _rewardTokenAddress,
+        uint256 _rewardTokenAmount,
+        uint256 _preMintAdAmount,
+        string memory _uri
+    ) public {
+        Ad ad = new Ad(
+            _name,
+            msg.sender, // 假设广告创建者是AdBoost合约的所有者
+            _uri,
+            address(boostToken),
+            _boostTokenAmount,
+            _rewardTokenAddress,
+            _rewardTokenAmount
+        );
+        ads.push(address(ad));
 
-    function mintAd(
-        address recipient,
-        uint256 amount,
-        bytes memory data
-    ) public onlyOwner {
-        _mint(recipient, AD_TOKEN_ID, amount, data);
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 id,
-        uint256 amount,
-        bytes memory data
-    ) public override {
-        require(id == AD_TOKEN_ID, "AdBoost: Invalid token ID");
-
-        // 如果該NFT的上一個擁有者存在，則給予獎勵
-        address previousOwner = _previousOwners[id];
-        if (previousOwner != address(this)) {
-            // 確保不是新mint的NFT
-            require(
-                _rewardToken.transfer(previousOwner, amount),
-                "AdBoost: Reward transfer failed"
-            );
+        // Mint NFT for the advertiser
+        if (_preMintAdAmount > 0) {
+            ad.mint(msg.sender, 1, _preMintAdAmount, "");
         }
-
-        // 更新NFT的上一個擁有者為當前發起轉移的地址
-        _previousOwners[id] = from;
-
-        super.safeTransferFrom(from, to, id, amount, data);
+        emit AdCreated(address(ad), _name, msg.sender);
     }
 
-    function batchMintAds(
-        address[] memory recipients,
-        uint256 amount,
-        bytes memory data
+    // 可选：充值广告合约的BOOST代币
+    function chargeAd(
+        address adAddress,
+        uint256 boostTokenAmount
     ) public onlyOwner {
-        for (uint256 i = 0; i < recipients.length; i++) {
-            _mint(recipients[i], AD_TOKEN_ID, amount, data);
-        }
+        require(
+            boostTokenAmount > 0,
+            "Boost token amount must be greater than 0"
+        );
+        boostToken.transfer(adAddress, boostTokenAmount);
     }
 
-    function uri(uint256 tokenId) public view override returns (string memory) {
-        require(tokenId == AD_TOKEN_ID, "AdBoost: Invalid token ID");
-        return _adURI;
+    // 获取所有广告合约的地址
+    function getAllAds() public view returns (address[] memory) {
+        return ads;
     }
 }
