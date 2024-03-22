@@ -4,10 +4,16 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ERC20.sol";
+import "./MCV2_Token.sol";
+import "./MCV2_ZapV1.sol";
+import "./MCV2_Bond.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Pausable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 
+// Bond: 0x8dce343A86Aa950d539eeE0e166AFfd0Ef515C0c
+// zapV1: 0x1Bf3183acc57571BecAea0E238d6C3A4d00633da
 contract Ad is
     ERC1155,
     Ownable,
@@ -19,10 +25,11 @@ contract Ad is
     address public adBoostAddress;
     mapping(address => bool) public haveBoosted;
     address public lastBooster;
-    IERC20 public boostToken;
-
-    // Temporary use mapping to who owns BOOST token amount
-    mapping(address => uint256) public boostTokenBalance;
+    MCV2_Token public boostToken;
+    address public zapV1Address =
+        address(0x1Bf3183acc57571BecAea0E238d6C3A4d00633da);
+    address public bondAddress =
+        address(0x8dce343A86Aa950d539eeE0e166AFfd0Ef515C0c);
 
     // Metadata
     address public advertiser;
@@ -33,76 +40,104 @@ contract Ad is
         address advertiser,
         string advertiseUri,
         address boostTokenAddress,
-        uint256 boostTokenAmount,
-        address rewardTokenAddress,
-        uint256 rewardTokenAmount
+        uint256 ethAmount,
+        uint256 preMintAdAmount
     );
+
+    receive() external payable {}
 
     constructor(
         string memory _name,
         address _advertiser,
         string memory _advertiseUri,
         address _boostTokenAddress,
-        uint256 _boostTokenAmount,
-        address _rewardTokenAddress,
-        uint256 _rewardTokenAmount
-    ) ERC1155(_advertiseUri) Ownable(_advertiser) {
+        uint256 _ethAmount,
+        uint256 _preMintAdAmount
+    ) payable ERC1155(_advertiseUri) Ownable(_advertiser) {
+        // check eth amount, msg.value
+        require(msg.value >= _ethAmount, "Not enough eth to create ad");
+
         name = _name;
         advertiser = _advertiser;
-        boostToken = IERC20(_boostTokenAddress);
         adBoostAddress = msg.sender;
+        boostToken = MCV2_Token(_boostTokenAddress);
+
+        if (_preMintAdAmount > 0) {
+            _mint(advertiser, 1, _preMintAdAmount, "");
+        }
+
         emit AdCreated(
             _name,
             _advertiser,
             _advertiseUri,
             _boostTokenAddress,
-            _boostTokenAmount,
-            _rewardTokenAddress,
-            _rewardTokenAmount
+            _ethAmount,
+            _preMintAdAmount
         );
     }
 
-    function boost(uint256 tokenId, address nextBooster) public {
-        require(
-            balanceOf(msg.sender, tokenId) > 0,
-            "Caller has no token to boost"
-        );
-        require(
-            !haveBoosted[nextBooster],
-            "Next booster has already boosted this ad"
-        );
-
-        if (lastBooster != address(0)) {
-            // Transfer BOOST tokens to the last booster
-            _transferBoostToken(lastBooster, 1); // Assuming 1 BOOST token per boost; adjust as needed
-        }
-
-        // Transfer the NFT to the next booster
-        safeTransferFrom(msg.sender, nextBooster, tokenId, 1, "");
-
-        // Update the state
-        haveBoosted[nextBooster] = true;
-
+    // Override transfer functions
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 id,
+        uint256 amount,
+        bytes memory data
+    ) public override {
+        require(!haveBoosted[to], "Next booster has already boosted this ad");
         // Transfer BOOST tokens to the last booster
+        if (lastBooster != address(0)) {
+            mintBoostToken(lastBooster, 1);
+        }
+        super.safeTransferFrom(from, to, id, amount, data);
+        haveBoosted[to] = true;
         lastBooster = msg.sender;
-
-        emit Boosted(tokenId, nextBooster);
+        emit Boosted(id, to);
     }
 
-    function mintBoostToken(uint256 amount) public onlyOwner {
-        // Here you need the logic to mint BOOST tokens
-        // This might involve interacting with a separate BOOST token contract
+    // function boost(uint256 tokenId, address nextBooster) public {
+    //     require(
+    //         balanceOf(msg.sender, tokenId) > 0,
+    //         "Caller has no token to boost"
+    //     );
+    //     require(
+    //         !haveBoosted[nextBooster],
+    //         "Next booster has already boosted this ad"
+    //     );
+    //     if (lastBooster != address(0)) {
+    //         // Transfer BOOST tokens to the last booster
+    //         mintBoostToken(lastBooster, 1);
+    //     }
+    //     // Transfer the NFT to the next booster
+    //     safeTransferFrom(msg.sender, nextBooster, tokenId, 1, "");
+    //     haveBoosted[nextBooster] = true;
+    //     lastBooster = msg.sender;
+    //     emit Boosted(tokenId, nextBooster);
+    // }
+
+    function mintBoostToken(address to, uint256 amount) public payable {
+        uint128 priceForNextMint = MCV2_Bond(bondAddress).priceForNextMint(
+            address(boostToken)
+        );
+        require(
+            address(this).balance >= amount * priceForNextMint,
+            "Not enough eth to mint BOOST token"
+        );
+        MCV2_ZapV1(payable(zapV1Address)).mintWithEth{
+            value: address(this).balance
+        }(address(boostToken), amount * 10 ** boostToken.decimals(), to);
     }
 
     function burnBoostToken(uint256 amount) public {
-        // Here you need the logic to burn BOOST tokens
-        // This might involve interacting with a separate BOOST token contract
-    }
+        // Approve the zapV1 contract to spend the BOOST tokens
+        MCV2_Token(address(boostToken)).approve(zapV1Address, amount);
 
-    function _transferBoostToken(address to, uint256 amount) internal {
-        require(
-            boostToken.transfer(to, amount),
-            "Failed to transfer BOOST tokens"
+        // Burn the BOOST tokens
+        MCV2_ZapV1(payable(zapV1Address)).burnToEth(
+            address(boostToken),
+            amount,
+            0,
+            address(this)
         );
     }
 

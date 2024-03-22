@@ -3,11 +3,10 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "./Ad.sol"; // 假设Ad合约与此合约在同一目录
+import "./Ad.sol";
 
 contract AdBoost is Ownable {
-    IERC20 public boostToken; // BOOST代币的接口
-    address[] public ads; // 存储所有广告合约的地址
+    address[] public ads;
 
     event AdCreated(
         address indexed adAddress,
@@ -15,49 +14,26 @@ contract AdBoost is Ownable {
         address indexed creator
     );
 
-    constructor(
-        address _boostTokenAddress,
-        address _initialOwner
-    ) Ownable(_initialOwner) {
-        boostToken = IERC20(_boostTokenAddress);
-    }
+    constructor(address _initialOwner) Ownable(_initialOwner) {}
 
     function createAd(
         string memory _name,
-        uint256 _boostTokenAmount,
-        address _rewardTokenAddress,
-        uint256 _rewardTokenAmount,
+        address _boostTokenAddress,
+        uint256 _ethAmount,
         uint256 _preMintAdAmount,
         string memory _uri
-    ) public {
-        Ad ad = new Ad(
+    ) public payable returns (address) {
+        require(msg.value >= _ethAmount, "Not enough eth to create ad");
+        Ad ad = (new Ad){value: _ethAmount}(
             _name,
-            msg.sender, // 假设广告创建者是AdBoost合约的所有者
+            msg.sender,
             _uri,
-            address(boostToken),
-            _boostTokenAmount,
-            _rewardTokenAddress,
-            _rewardTokenAmount
+            _boostTokenAddress,
+            _ethAmount,
+            _preMintAdAmount
         );
         ads.push(address(ad));
-
-        // Mint NFT for the advertiser
-        if (_preMintAdAmount > 0) {
-            ad.mint(msg.sender, 1, _preMintAdAmount, "");
-        }
-        emit AdCreated(address(ad), _name, msg.sender);
-    }
-
-    // 可选：充值广告合约的BOOST代币
-    function chargeAd(
-        address adAddress,
-        uint256 boostTokenAmount
-    ) public onlyOwner {
-        require(
-            boostTokenAmount > 0,
-            "Boost token amount must be greater than 0"
-        );
-        boostToken.transfer(adAddress, boostTokenAmount);
+        return address(ad);
     }
 
     // 获取所有广告合约的地址
