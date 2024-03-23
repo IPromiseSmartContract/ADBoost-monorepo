@@ -1,11 +1,15 @@
 "use client";
 
+import { Connector, useConnect } from 'wagmi'
+
 import Button from "@/components/Button";
 import Image from "next/image";
 // import logo from "@/app/logo.png";
 import logo from "@/public/logo.svg";
 
 const NavgationBar = () => {
+  const { connectors, connect } = useConnect()
+
   const handleConnect = () => {};
 
   return (
@@ -24,6 +28,13 @@ const NavgationBar = () => {
         </a>
       </div>
       <div className="flex-none gap-4">
+      {
+        connectors.map((connector) => (
+          <button key={connector.uid} onClick={() => connect({ connector })}>
+            {connector.name}
+          </button>
+        ))
+      }
         <span className="badge badge-primary bg-gradient-to-r from-primary to-secondary">
           0x123...456
         </span>

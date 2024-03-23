@@ -35,33 +35,34 @@ export default function Home() {
   const handleSubmit = () => {};
 
   return (
-    <main className="rounded-lg px-24 py-16">
-      <H1 text={"Create an Advertisement"} />
-      <div className="grid grid-cols-2 gap-8 mt-8">
-        {forms.map((form) => {
-          return (
-            <div key={form.id} className="flex flex-col gap-12">
-              <Input
-                id={form.id}
-                label={form.text}
-                type="text"
-                placeholder={form.placeholder || ""}
-                value={values[form.value as keyof typeof values]}
-                onChange={handleChange}
-              />
-            </div>
-          );
-        })}
-        <FileUpload url={file} onChange={handleImage} />
-      </div>
-      <div className="flex justify-start">
-        <button
-          className="btn bg-gradient-to-r from-primary to-secondary px-16 btn-lg hover:from-secondary hover:to-primary text-black"
-          onClick={handleSubmit}
-        >
-          Create
-        </button>
-      </div>
-    </main>
+      <main className="rounded-lg px-24 py-16">
+        <H1 text={"Create an Advertisement"} />
+        <span>{}</span>
+        <div className="grid grid-cols-2 gap-8 mt-8">
+          {forms.map((form) => {
+            return (
+              <div key={form.id} className="flex flex-col gap-12">
+                <Input
+                  id={form.id}
+                  label={form.text}
+                  type="text"
+                  placeholder={form.placeholder || ""}
+                  value={values[form.value as keyof typeof values]}
+                  onChange={handleChange}
+                />
+              </div>
+            );
+          })}
+          <FileUpload url={file} onChange={handleImage} />
+        </div>
+        <div className="flex justify-start">
+          <button
+            className="btn bg-gradient-to-r from-primary to-secondary px-16 btn-lg hover:from-secondary hover:to-primary text-black"
+            onClick={handleSubmit}
+          >
+            Create
+          </button>
+        </div>
+      </main>
   );
 }
