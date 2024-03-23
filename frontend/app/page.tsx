@@ -9,10 +9,21 @@ import FileUpload from "@/components/FileUpload";
 import Button from "@/components/Button";
 
 export default function Home() {
+  const [values, setValues] = React.useState({
+    "ad-name": "",
+    "boost-token-address": "",
+    "reward-amount": "",
+    "pre-mint-ad-amount": "",
+    "ad-link": "",
+  });
   const [file, setFile] = React.useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("change");
+    setValues({
+      ...values,
+      [e.target.id]: e.target.value,
+    });
+    console.log(e.target.value);
   };
 
   const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +45,8 @@ export default function Home() {
                 id={form.id}
                 label={form.text}
                 type="text"
-                placeholder={form.text}
-                value={""}
+                placeholder={form.placeholder || ""}
+                value={values[form.value as keyof typeof values]}
                 onChange={handleChange}
               />
             </div>
