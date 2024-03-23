@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "ADBoost",
+  "version": "1.0.0",
+  "action": { "default_popup": "index.html" },
+  "permissions": ["activeTab", "tabs"],
+  "icons": {
+    "16": "pred.png",
+    "32": "pred.png",
+    "48": "pred.png",
+    "128": "pred.png"
+  }
+}
