@@ -1,6 +1,6 @@
 "use client";
 
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectKitButton } from "connectkit";
 
 import Image from "next/image";
 import logo from "@/public/logo.svg";
@@ -22,8 +22,8 @@ const NavgationBar = () => {
           ADBoost
         </a>
       </div>
-      <div className="flex-none gap-6">
-        <ConnectButton />
+      <div className="flex-none">
+       <ConnectKitButton />
       </div>
     </nav>
   );
