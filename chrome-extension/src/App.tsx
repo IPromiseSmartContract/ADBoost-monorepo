@@ -30,7 +30,7 @@ function App() {
 
   const nfts = [
     {
-      name: "來去賭場吧！",
+      name: "Let's play games on doodles",
       imageUrl:
         "https://s.yimg.com/ny/api/res/1.2/MF1UvoHNx96DpLSSaaFDDQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTY0MA--/https://media.zenfs.com/en/the_defiant_332/eae09bafa4c8b713387d110d3fdf2b75",
       targetUrl: "https://www.google.com",
