@@ -59,7 +59,7 @@ export default function Home() {
           className="mt-24 mx-auto btn bg-gradient-to-r from-primary to-secondary px-16 btn-lg hover:from-secondary hover:to-primary text-black"
           onClick={handleSubmit}
         >
-          Create
+          <span className="font-semibold text-white">Create</span>
         </button>
       </div>
     </main>
