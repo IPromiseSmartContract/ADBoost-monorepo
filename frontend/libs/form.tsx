@@ -1,22 +1,32 @@
 export const forms = [
     {
-        id: "1",
+        id: "ad-name",
         text: "Ad Name",
+        value: "ad-name",
+        placeholder: "Please Input Ad Name"
     },
     {
-        id: "2",
+        id: "boost-token-address",
         text: "Boost Token Address",
+        value: "boost-token-address",
+        placeholder: "Please Input Boost Token Address"
     },
     {
-        id: "3",
+        id: "reward-amount",
         text: "Reward Amount(ETH)",
+        value: "reward-amount",
+        placeholder: "Please Input Reward Amount"
     },
     {
-        id: "4",
-        text: "Pre Mint Ad Amount"
+        id: "pre-mint-ad-amount",
+        text: "Pre Mint Ad Amount",
+        value: "pre-mint-ad-amount",
+        placeholder: "Please Input Pre Mint Ad Amount"
     },
     {
-        id: "5",
-        text: "Ad Link"
+        id: "ad-link",
+        text: "Ad Link",
+        value: "ad-link",
+        placeholder: "Please Input Ad Link"
     }
 ]
