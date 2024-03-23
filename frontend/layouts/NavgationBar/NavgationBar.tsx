@@ -1,12 +1,11 @@
 "use client";
 
-import Button from "@/components/Button";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+
 import Image from "next/image";
-// import logo from "@/app/logo.png";
 import logo from "@/public/logo.svg";
 
 const NavgationBar = () => {
-  const handleConnect = () => {};
 
   return (
     <nav className="navbar bg-base-100 py-4 px-24">
@@ -23,15 +22,8 @@ const NavgationBar = () => {
           ADBoost
         </a>
       </div>
-      <div className="flex-none gap-4">
-        <span className="badge badge-primary bg-gradient-to-r from-primary to-secondary">
-          0x123...456
-        </span>
-        <Button
-          text={"Connect Wallet"}
-          type={"button"}
-          onClick={handleConnect}
-        />
+      <div className="flex-none gap-6">
+        <ConnectButton />
       </div>
     </nav>
   );
