@@ -12,3 +12,11 @@ node_modules
 # solidity-coverage files
 /coverage
 /coverage.json
+
+# Deployment files
+/ignition/deployments
+
+.DS_Store
+
+# Frontend
+/frontend/.next
