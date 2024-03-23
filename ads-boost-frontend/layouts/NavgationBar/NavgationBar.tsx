@@ -11,7 +11,7 @@ const NavgationBar = () => {
     }
 
     return (
-        <nav className="w-full h-24 px-24 bg-white rounded-lg flex justify-between items-center">
+        <nav className="w-full h-24 px-16 bg-white rounded-lg flex justify-between items-center">
             <Image  src={logo}
                     width={0}
                     height={0}

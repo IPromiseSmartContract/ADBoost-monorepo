@@ -15,6 +15,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <html lang="en" className="bg-gray-50">
       <body className={inter.className + "w-full max-w-7xl mx-auto flex min-h-screen flex-col justify-between"}>
