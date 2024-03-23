@@ -16,7 +16,7 @@ const Button: React.FC<ButtonTypeProp> = ({ ...props }) => {
       disabled:btn-disabled ${customClass}
 `}
     >
-      {text}
+      <span className="font-semibold text-white">{text}</span>
     </button>
   );
 };
