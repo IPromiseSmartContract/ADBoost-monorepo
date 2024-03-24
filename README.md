@@ -1,4 +1,4 @@
-# ADBoost Project Monorepo
+# ADBoost Monorepo
 
 <img width="1318" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/1be1d330-c089-4a25-be12-3ed2cf79ae2f">
 
