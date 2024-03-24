@@ -1,7 +1,46 @@
 # ADBoost Project Monorepo
 
-Welcome to the ADBoost Project Monorepo, an Ethereum-based decentralized advertising solution designed to bring transparency, participation, and equitable reward distribution to the advertising process. This monorepo houses the core components of the ADBoost ecosystem, leveraging smart contracts, a browser extension for ad dissemination, and a front-end platform for ad campaign management.
+## Cascading Success, One Ad at a Time
 
+### Introduction
+
+In a world where traditional advertising is clouded with opacity, ADBoost emerges as a beacon of innovation, leveraging the Ethereum blockchain to usher in a new era of transparency, participation, and equitable rewards in advertising. Our mission is to dismantle the barriers erected by conventional advertising practices, ensuring that every stakeholder in the advertising value chain can verify the impact and reach of campaigns, actively participate in the dissemination of advertisements, and share in the success of advertising endeavors.
+
+### Why ADBoost?
+
+#### Pain Points in Traditional Advertising
+
+- **Trust and Transparency**: The opaque nature of ad click and audience targeting calculations has always been a point of contention.
+- **Public Participation**: The existing models exclude the general public from actively participating in and benefiting from the ad dissemination process.
+- **Pricing Control**: The control over ad pricing, vested in intermediaries, introduces high levels of uncertainty.
+- **Conversion Rate Calculations**: The indirect inference of true conversion rates from impressions to sales poses significant challenges.
+
+#### The ADBoost Solution
+
+ADBoost redefines the advertising landscape by introducing a decentralized platform that ensures:
+
+- **Full Transparency in Campaigns**: Advertisers have clear visibility over their campaigns.
+- **Engagement and Rewards for Boosters**: Viewers and spreaders are rewarded for their engagement, fostering a community-driven advertising ecosystem.
+
+### Core Components
+
+1. **Advertisement (AD)**: Leveraging ERC-1155 NFTs, advertisers can craft unique ad campaigns.
+2. **Boost Token (BOOST)**: Our reward token, underpinned by Mint Club’s bonding curve protocol, ensures a transparent and equitable reward system.
+
+### Innovative Features
+
+- **Reward Mechanism**: A novel approach to incentivizing the spread of ads.
+- **Account Integrity**: Utilizing ZK-KYC for authentic account verification.
+- **Conversion Rate Verification**: ORA’s CLE enables the measurement of genuine engagement.
+
+### Our Advantages
+
+- **Transparency and Trust**: A foundational pillar of ADBoost, ensuring all campaign aspects are verifiable.
+- **Public Engagement and Reward**: Facilitating active participation from the general public.
+- **Decentralized Pricing and Verifiable Conversion Rates**: Empowering advertisers with real-time, accurate campaign metrics.
+
+
+Feel free to adapt this template to better fit your project’s needs or highlight specific features you wish to showcase.
 ## Quick Links
 
 - Sepolia: [Contract Address](https://sepolia.etherscan.io/address/0x2feEdc2a029F2d925A9b6dc6c54D669cCca5d849)
