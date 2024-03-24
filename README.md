@@ -1,6 +1,6 @@
 # ADBoost Project Monorepo
 
-## Cascading Success, One Ad at a Time
+> Cascading Success, One Ad at a Time
 
 ### Introduction
 
