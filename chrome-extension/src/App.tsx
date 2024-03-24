@@ -30,7 +30,7 @@ function App() {
 
   const nfts = [
     {
-      name: "Let's play games on doodles",
+      name: "ETHTaipei-2024",
       imageUrl:
         "https://s.yimg.com/ny/api/res/1.2/MF1UvoHNx96DpLSSaaFDDQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTY0MA--/https://media.zenfs.com/en/the_defiant_332/eae09bafa4c8b713387d110d3fdf2b75",
       targetUrl: "https://www.google.com",
@@ -38,7 +38,7 @@ function App() {
       description: "Complete tasks by visiting the link below.",
     },
     {
-      name: "快參加 ETHTaipei!!",
+      name: "Let's attend ETHTaipei!!",
       imageUrl:
         "https://ethtaipei.org/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo-eth-tpe-w.a4ac4d9c.png&w=3840&q=75",
       targetUrl: "https://www.google.com",
