@@ -28,6 +28,12 @@ const frameMetadata = getFrameMetadata({
       label: 'Enter Ad Name',
       target: `${NEXT_PUBLIC_URL}/api/collect-image-uri`,
     },
+    {
+            action: 'tx',
+            label: 'MINT AD NFT',
+            target: `${NEXT_PUBLIC_URL}/api/tx`,
+            postUrl: `${NEXT_PUBLIC_URL}/api/tx-success`,
+          },
   ],
   image: {
     src: `${NEXT_PUBLIC_URL}/park-3.png`, // Placeholder image

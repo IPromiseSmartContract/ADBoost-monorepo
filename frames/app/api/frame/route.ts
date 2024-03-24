@@ -1,61 +1,40 @@
-import { FrameRequest, getFrameMessage, getFrameHtmlResponse } from '@coinbase/onchainkit/frame';
+import { FrameRequest, getFrameMessage } from '@coinbase/onchainkit/frame';
 import { NextRequest, NextResponse } from 'next/server';
-import { NEXT_PUBLIC_URL } from '../../config';
+import { encodeFunctionData, parseEther } from 'viem';
+import { base ,sepolia} from 'viem/chains';
+import AdContractABI from '../../_contracts/AdContractABI';
+import { AD_CONTRACT_ADDR } from '../../config'; 
+import type { FrameTransactionResponse } from '@coinbase/onchainkit/frame';
 
-async function getResponse(req: NextRequest): Promise<NextResponse> {
+async function getResponse(req: NextRequest): Promise<NextResponse | Response> {
   const body: FrameRequest = await req.json();
-  const { isValid, message } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
+  const { isValid } = await getFrameMessage(body, { neynarApiKey: 'NEYNAR_ONCHAIN_KIT' });
 
   if (!isValid) {
     return new NextResponse('Message not valid', { status: 500 });
   }
 
-  const text = message.input || '';
-  let state = {
-    page: 0,
+  // Encode the function call to the createAd function of your contract
+  const data = encodeFunctionData({
+    abi: AdContractABI,
+    functionName: 'createAd',
+    // @ts-ignore 
+    args: [ "ad name", "0x56923048bf8A5f9C5d96Be2182D57F207895eCEd" , parseEther( "0.001"), parseInt( "0.002"), `https://test-frame-two.vercel.app/park-3.png`],
+  });
+
+
+  const txData: FrameTransactionResponse = {
+    chainId: `eip155:${sepolia.id}`, // Adjust according to your network
+    method: 'eth_sendTransaction',
+    params: {
+      abi: AdContractABI,
+      data,
+      to: AD_CONTRACT_ADDR,
+
+      value: parseEther("0.001").toString(), 
+    },
   };
-  try {
-    state = JSON.parse(decodeURIComponent(message.state?.serialized));
-  } catch (e) {
-    console.error(e);
-  }
-
-  /**
-   * Use this code to redirect to a different page
-   */
-  if (message?.button === 3) {
-    return NextResponse.redirect(
-      'https://www.google.com/search?q=cute+dog+pictures&tbm=isch&source=lnms',
-      { status: 302 },
-    );
-  }
-
-  return new NextResponse(
-    getFrameHtmlResponse({
-      buttons: [
-        {
-          label: `State: ${state?.page || 0}`,
-        },
-        {
-          action: 'link',
-          label: 'OnchainKit',
-          target: 'https://onchainkit.xyz',
-        },
-        {
-          action: 'post_redirect',
-          label: 'Dog pictures',
-        },
-      ],
-      image: {
-        src: `${NEXT_PUBLIC_URL}/park-1.png`,
-      },
-      postUrl: `${NEXT_PUBLIC_URL}/api/frame`,
-      state: {
-        page: state?.page + 1,
-        time: new Date().toISOString(),
-      },
-    }),
-  );
+  return NextResponse.json(txData);
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
