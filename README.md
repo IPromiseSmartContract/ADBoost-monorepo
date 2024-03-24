@@ -81,6 +81,25 @@ A Next.js application serving as the front-end interface for ad campaign managem
 
 <img width="1306" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/9dea2985-b79e-4dc8-ab0d-f3ca1bf05b4a">
 
+### 3. Frames (`frames` Folder)
+Directly mint/create AD on frame url  - will be eventually made fully customizable
+
+ADBoost's Use of Farcaster Frames:
+
+- Interactive Ads: Enhances viewer engagement with immersive advertising.
+- Seamless Integration: Ads naturally blend into the Farcaster user experience.
+- Blockchain Transparency: Every ad interaction is transparent and verifiable.
+- Targeted Engagement: Directly connects with a blockchain-savvy audience.
+
+- [Frames url](https://test-frame-two.vercel.app)
+
+- [Warpcast Validator](https://warpcast.com/~/developers/frames?url=https%3A%2F%2Ftest-frame-two.vercel.app)
+
+**NOTE: Currently Farcaster only supports Base,Op Mainnet and Zora, hence cant be tested on testnet, as our contract is currently on sepolia**
+
+<img alt="" src="https://cdn.discordapp.com/attachments/1220970553448468560/1221323039979868201/image.png?ex=661228b7&is=65ffb3b7&hm=fbd1e3f97573a4c97ecea3d9dcb836abf6c64c24fe496597990b4b334e2385fe&" />
+<img alt="" src="https://cdn.discordapp.com/attachments/1220970553448468560/1221323593904816238/image.png?ex=6612293b&is=65ffb43b&hm=5438b68b55400bdbf307ef965c3590b38a92cdd6a28f50c1f5dfc680d658f7a0&" />
+
 **Setup:**
 ```bash
 cd frontend
