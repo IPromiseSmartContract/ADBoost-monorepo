@@ -1,5 +1,6 @@
-# ADBoost Monorepo
-
+# Welcome to ADBoost 🚀
+<a href="https://t.me/TictonOfficial" target="_blank"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0.svg?&style=for-the-badge&logo=telegram&logoColor=white" /></a>
+<a href="https://medium.com/@tondynasty824" target="_blank"><img alt="Medium" src="https://img.shields.io/badge/medium-%2312100E.svg?&style=for-the-badge&logo=medium&logoColor=white" /></a>
 <img width="1318" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/1be1d330-c089-4a25-be12-3ed2cf79ae2f">
 
 ### Introduction
@@ -66,6 +67,7 @@ yarn compile
 
 ### 2. Google Extension (`google-extension` Folder)
 A browser extension that enables users and advertisers to engage with the ADBoost platform directly from their browser, facilitating the distribution and viewing of ads.
+<img width="1710" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/5e99ff8e-ef88-459e-bf73-243a5c9ebbb7">
 
 **Setup:**
 ```bash
@@ -76,6 +78,8 @@ yarn build
 
 ### 3. Frontend Platform (`frontend` Folder)
 A Next.js application serving as the front-end interface for ad campaign management, allowing advertisers to create, manage, and monitor their ad campaigns with ease.
+
+<img width="1306" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/9dea2985-b79e-4dc8-ab0d-f3ca1bf05b4a">
 
 **Setup:**
 ```bash
