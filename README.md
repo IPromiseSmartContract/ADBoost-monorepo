@@ -1,6 +1,6 @@
 # ADBoost Project Monorepo
 
-> Cascading Success, One Ad at a Time
+<img width="1318" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/1be1d330-c089-4a25-be12-3ed2cf79ae2f">
 
 ### Introduction
 
@@ -26,6 +26,8 @@ ADBoost redefines the advertising landscape by introducing a decentralized platf
 
 1. **Advertisement (AD)**: Leveraging ERC-1155 NFTs, advertisers can craft unique ad campaigns.
 2. **Boost Token (BOOST)**: Our reward token, underpinned by Mint Club’s bonding curve protocol, ensures a transparent and equitable reward system.
+
+<img width="725" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/b50503d0-e0bf-4a2c-8304-7d4e2f6030f9">
 
 ### Innovative Features
 
