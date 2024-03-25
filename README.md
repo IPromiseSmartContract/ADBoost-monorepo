@@ -1,6 +1,6 @@
 # Welcome to ADBoost 🚀
 <a href="https://t.me/yuchengtsai" target="_blank"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-2CA5E0.svg?&style=for-the-badge&logo=telegram&logoColor=white" /></a>
-<a href="https://www.youtube.com/watch?v=og9BUd-H8Ig" target="_blank"><img alt="YT" src="https://img.shields.io/badge/youtube-d10808.svg?&style=for-the-badge&logo=youtube&logoColor=white" /></a>
+<a href="https://www.youtube.com/watch?v=x6eruD7LU2A" target="_blank"><img alt="YT" src="https://img.shields.io/badge/youtube-d10808.svg?&style=for-the-badge&logo=youtube&logoColor=white" /></a>
 <img width="1318" alt="image" src="https://github.com/IPromiseSmartContract/ADBoost-monorepo/assets/55632018/1be1d330-c089-4a25-be12-3ed2cf79ae2f">
 
 ### Introduction
