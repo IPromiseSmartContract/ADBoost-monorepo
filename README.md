@@ -47,6 +47,7 @@ Feel free to adapt this template to better fit your project’s needs or highlig
 ## Quick Links
 
 - Sepolia: [Contract Address](https://sepolia.etherscan.io/address/0x2feEdc2a029F2d925A9b6dc6c54D669cCca5d849)
+- Base Sepolia: [Contract Address](https://sepolia.basescan.org/address/0xa325c801638126E3112358C989E16cDE015314a7)
 - Linea: [Contract Address](https://goerli.lineascan.build/address/0x5017f7D9b6700df982c94fDbdc3ec3517Bd641DA)
 - Optimism: [Contract Address](https://sepolia-optimism.etherscan.io/address/0x67302DE986354a4a89663dDaa18D908312f9eEF7)
 - Polygon: [Contract Address](https://cardona-zkevm.polygonscan.com/address/0x3d2Bc1bCde9398a227B4178a09E9ba0e943F29e9)
