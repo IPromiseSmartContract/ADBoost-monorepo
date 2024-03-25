@@ -97,8 +97,13 @@ ADBoost's Use of Farcaster Frames:
 
 **NOTE: Currently Farcaster only supports Base,Op Mainnet and Zora, hence cant be tested on testnet, as our contract is currently on sepolia**
 
+**UPDATE: Upon reaching out to the farcaster team realized that they just pushed the support for base sepolia! our fram can be fully tested on base sepolia now - we have updated the contract address to the one deployed on base sepolia on same url**
+<img alt="" src="https://cdn.discordapp.com/attachments/1220970553448468560/1221715796686803015/image.png?ex=66139680&is=66012180&hm=92f840ce6dd2fa2d2f902b87b62bf82e50150ce98929850c05980b654168542c&" />
 <img alt="" src="https://cdn.discordapp.com/attachments/1220970553448468560/1221323039979868201/image.png?ex=661228b7&is=65ffb3b7&hm=fbd1e3f97573a4c97ecea3d9dcb836abf6c64c24fe496597990b4b334e2385fe&" />
-<img alt="" src="https://cdn.discordapp.com/attachments/1220970553448468560/1221323593904816238/image.png?ex=6612293b&is=65ffb43b&hm=5438b68b55400bdbf307ef965c3590b38a92cdd6a28f50c1f5dfc680d658f7a0&" />
+
+
+
+
 
 **Setup:**
 ```bash
